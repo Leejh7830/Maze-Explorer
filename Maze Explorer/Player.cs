@@ -26,7 +26,6 @@ namespace Maze_Explorer
         const int MOVE_TICK = 100;
         private int _sumTick = 0;
         int _index = 0;
-        private Random _rnd = new Random();
 
         public void Update(int deltaTick)
         {
@@ -46,7 +45,7 @@ namespace Maze_Explorer
             }
         }
 
-        private void BFS()
+        private void BFS() // <-> DFS
         {
             int[] dirY = new int[] { -1, 0, 1, 0 };
             int[] dirX = new int[] { 0, -1, 0, 1 };

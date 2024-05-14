@@ -18,15 +18,15 @@ namespace Maze_Explorer
 
         public enum TileType
         {
-            Base,
-            Empty,
-            Wall,
+            Base = 0,
+            Empty = 1,
+            Wall = 2,
         }
 
         public enum Direction
         {
             DOWN = 0,
-            RIGHT,
+            RIGHT = 1,
         }
 
         // 미로 초기설정
@@ -89,8 +89,6 @@ namespace Maze_Explorer
                         _tile[y, x + 1] = TileType.Empty;
                         continue;
                     }
-
-                    
 
                     Direction dir = (Direction)rand.Next(0, 2);
                     switch (dir)
