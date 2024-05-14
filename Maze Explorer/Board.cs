@@ -11,6 +11,10 @@ namespace Maze_Explorer
         const char CIRCLE = '\u25cf'; // (●) 검은 원을 나타냅니다
         public TileType[,] _tile; // 2D 타일정보
         public int _size; // 미로의 크기
+        Player _player;
+
+        public int DestY { get; private set; }
+        public int DestX { get; private set; }
 
         public enum TileType
         {
@@ -26,7 +30,7 @@ namespace Maze_Explorer
         }
 
         // 미로 초기설정
-        public void InitializeBoard(int size)
+        public void InitializeBoard(int size, Player player)
         {
             // size는 항상 홀수
             if (size % 2 == 0)
@@ -34,6 +38,10 @@ namespace Maze_Explorer
 
             _size = size;
             _tile = new TileType[_size, _size];
+            _player = player;
+
+            DestY = _size - 2;
+            DestX = _size - 2;
 
             GenerateBySideWinder();
         }
@@ -111,7 +119,20 @@ namespace Maze_Explorer
             {
                 for (int x = 0; x < _size; x++)
                 {
-                    Console.ForegroundColor = GetTileColor(_tile[y, x]);
+                    // 플레이어 표시
+                    if (y == _player.PosY && x == _player.PosX)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    // 목적지 표시
+                    else if (y == DestY && x == DestX)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = GetTileColor(_tile[y, x]);
+                    }
                     Console.Write(CIRCLE);
                 }
                 Console.WriteLine();
@@ -126,7 +147,7 @@ namespace Maze_Explorer
             switch (type)
             {
                 case TileType.Base:
-                    return ConsoleColor.Yellow;
+                    return ConsoleColor.DarkGreen;
                 case TileType.Empty:
                     return ConsoleColor.Green;
                 case TileType.Wall:

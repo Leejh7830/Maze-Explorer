@@ -13,7 +13,10 @@ namespace Maze_Explorer
             const int WAIT_TICK = 1000 / 30;
 
             Board board = new Board();
-            board.InitializeBoard(49);
+            Player player = new Player();
+
+            board.InitializeBoard(25, player);
+            player.InitializePlayer(1, 1, board._size-2, board._size-2 ,board);
 
             Console.CursorVisible = false;
 
@@ -21,7 +24,8 @@ namespace Maze_Explorer
             while (true)
             {
                 #region 프레임 관리
-                int currentTick = System.Environment.TickCount;
+                int currentTick = System.Environment.TickCount; // Board
+                int deltaTick = currentTick - lastTick; // Player
 
                 //경과 시간이 1/30초보다 작다면?
                 if (currentTick - lastTick < WAIT_TICK)
@@ -33,6 +37,7 @@ namespace Maze_Explorer
                 // 1)사용자 입력 대기
 
                 // 2)입력과 기타 로직 처리
+                player.Update(deltaTick);
 
                 // 3)렌더링
                 Console.SetCursorPosition(0, 0);
