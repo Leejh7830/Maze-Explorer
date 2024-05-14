@@ -13,7 +13,7 @@ namespace Maze_Explorer
             const int WAIT_TICK = 1000 / 30;
 
             Board board = new Board();
-            board.InitializeBoard(25);
+            board.InitializeBoard(49);
 
             Console.CursorVisible = false;
 
